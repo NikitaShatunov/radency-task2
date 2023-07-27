@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice  } from "@reduxjs/toolkit";
+
 
 export type Item = {
-  id: number;
+  id: number | null;
   archived: Boolean;
   name: string;
   created: string;
@@ -12,9 +13,19 @@ export type Item = {
 
 interface InitialState {
   items: Item[];
+  editTask: Item;
 }
 
 const initialState: InitialState = {
+  editTask: {
+    id: null,
+    archived: false,
+    name: "",
+    created: "",
+    category: "",
+    content: "",
+    date: "",
+  },
   items: [
     {
       id: 0,
@@ -106,12 +117,17 @@ const taskSlice = createSlice({
     clearTasks(state) {
       state.items = [];
     },
+    editTask(state, action) {
+      state.items.forEach((obj) => {
+        if (obj.id === action.payload.id) {
+          obj.content = action.payload.content;
+          obj.name = action.payload.name;
+          obj.date = action.payload.date;
+        }
+      });
+    },
   },
 });
-export const {
-  addTask,
-  deleteTask,
-  setArchive,
-  clearTasks,
-} = taskSlice.actions;
+export const { addTask, deleteTask, setArchive, clearTasks, editTask } =
+  taskSlice.actions;
 export default taskSlice.reducer;
