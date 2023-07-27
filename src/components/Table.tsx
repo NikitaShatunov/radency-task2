@@ -1,12 +1,16 @@
-import { useAppSelector } from "../redux/redux";
+import { useAppDispatch, useAppSelector } from "../redux/redux";
+import { clearTasks } from "../redux/slices/tasksSlice";
 import TaskCell from "./TaskCell";
-import React from 'react';
+import React from "react";
 
 const Table = () => {
-    const tasks = useAppSelector((state) => state.tasks)
-    React.useEffect(() => {
-       
-    }, [])
+  const items = useAppSelector((state) => state.tasks.items);
+  const [isArchived, setIsArchived] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const onClickClearTasks = () => {
+    if(window.confirm('Are you sure you want to delete all tasks?')) dispatch(clearTasks())
+  }
+  React.useEffect(() => {}, [items]);
   return (
     <>
       <div>
@@ -19,8 +23,14 @@ const Table = () => {
               <div>Content</div>
               <div>Dates</div>
               <div className="sidebar__buttons__container">
-                <span className="sidebar__buttons__archive">Active</span>
+                <span
+                  onClick={() => setIsArchived(!isArchived)}
+                  className="sidebar__buttons__archive"
+                >
+                  {isArchived ? "Archived" : "Active"}
+                </span>
                 <img
+                  onClick={() => onClickClearTasks()}
                   data-title="Delete all"
                   className="sidebar__buttons__delete"
                   src="/img/trash.svg"
@@ -30,7 +40,11 @@ const Table = () => {
             </div>
             <div className="list__items">
               <div className="list__items__main">
-               {tasks.map((obj, id) => <div key={id}><TaskCell props={obj}/></div>)} 
+                {items.map((obj, id) => (
+                  <div key={id}>
+                    <TaskCell isArchived={isArchived} props={obj} />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
