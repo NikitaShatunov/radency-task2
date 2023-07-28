@@ -7,24 +7,26 @@ interface TasksCell {
   props: Item;
   isArchived: Boolean;
 }
-export const categories: any = {
-  Shop: "task.svg",
-  "Random Thought": "thought.svg",
-  Gym: "gym.svg",
-  Idea: "idea.svg",
+interface Categories {
+  [key: string]: string;
+}
+export const categories: Categories = {
+  'Shop': "task.svg",
+  'Random Thought': "thought.svg",
+  'Gym': "gym.svg",
+  'Idea': "idea.svg",
 };
 
 const TaskCell = ({ props, isArchived }: TasksCell) => {
   const dispatch = useAppDispatch();
-  
 
   const onClickDeleteTask = () => {
     if (window.confirm("Are you sure?")) dispatch(deleteTask(props.id));
   };
   const onClickEdit = () => {
-    dispatch(setIsEdit(true))
-    dispatch(setCurrentEdit(props.id))
-  }
+    dispatch(setIsEdit(true));
+    dispatch(setCurrentEdit(props.id));
+  };
 
   React.useEffect(() => {}, []);
   return (
@@ -45,7 +47,6 @@ const TaskCell = ({ props, isArchived }: TasksCell) => {
             id={String(props.id)}
             className="task contentOfTask"
             onClick={() => onClickEdit()}
-            data-modal="#modal_2"
           >
             {props.content.length > 30
               ? props.content.slice(0, 30) + "..."
@@ -54,7 +55,7 @@ const TaskCell = ({ props, isArchived }: TasksCell) => {
           <li className="task dateTask">{props.date}</li>
           <li className="sidebar">
             <img
-            onClick={() => dispatch(setArchive(props.id))}
+              onClick={() => dispatch(setArchive(props.id))}
               className="sidebar__buttons"
               src="/img/archive.svg"
               id={String(props.id)}
@@ -62,7 +63,6 @@ const TaskCell = ({ props, isArchived }: TasksCell) => {
             />
             <img
               className="sidebar__buttons editZoom"
-              data-modal="#modal_2"
               src="/img/pencil.svg"
               id={String(props.id)}
               onClick={() => onClickEdit()}

@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <ModalWindow />
-      <Table />
+      <Table type="tasks" />
       <button
         id={"createButton"}
         onClick={() => dispatch(setModalState(true))}
@@ -18,6 +18,7 @@ function App() {
       >
         Create note
       </button>
+      <Table type="sum" />
     </div>
   );
 }
