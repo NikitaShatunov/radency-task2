@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.scss";
 import Table from "./components/Table";
 import ModalWindow from "./components/ModalWindow";

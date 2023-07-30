@@ -17,18 +17,21 @@ const ModalWindow = () => {
   const isEditShown = useAppSelector((state) => state.modal.isEdit);
   const currentId = useAppSelector((state) => state.modal.currentEdit);
   const dispatch = useAppDispatch();
+  //ref indicates that we click out of modal window
   const refModal = React.useRef<HTMLDivElement>(null);
   const items = useAppSelector((state) => state.tasks.items);
   const [isWarning, setIsWarning] = React.useState(false);
+  //states for modalWindow create
   const [name, setName] = React.useState("");
   const [category, setCategory] = React.useState("Shop");
   const [content, setContent] = React.useState("");
-
+  //states for modalWindow edit
   const [editName, setEditName] = React.useState("");
   const [editContent, setEditContent] = React.useState("");
   const [editItem, setEditItem] = React.useState<Item | null>(null);
 
   React.useEffect(() => {
+    //define the edit element
     setEditItem(items.filter((obj) => obj.id === currentId)[0]);
     if (editItem) {
       setEditContent(editItem.content);
@@ -38,6 +41,7 @@ const ModalWindow = () => {
   React.useEffect(() => {
     setContent("");
     setName("");
+    //if we click out of modalWindow it will be closed
     const clickOutside = (event: MouseEvent) => {
       let path = event.composedPath().includes(refModal.current as Node);
       if (path) {
@@ -52,18 +56,22 @@ const ModalWindow = () => {
     };
   }, [isModalShown, isEditShown]);
   const onClickSave = () => {
+    //if we open modalWindow to create new task
     if (isModalShown) {
       if (name && content && category) {
         setIsWarning(false);
         dispatch(setModalState(false));
         dispatch(setIsEdit(false));
+        //create new task and push it
         const newItem: Item = {
           id: items.length ? (items[items.length - 1].id || 0) + 1 : 0,
           name: name,
           archived: false,
           category: category,
           content: content,
+          //function get current date
           created: formatDate(),
+          //get dates if the are
           date: dateValidator(content),
         };
         dispatch(addTask(newItem));
@@ -71,11 +79,13 @@ const ModalWindow = () => {
         setIsWarning(true);
       }
     }
+    //if we open modalWindow to edit task
     if (isEditShown) {
       if (editContent && editName && currentId) {
         setIsWarning(false);
         dispatch(setModalState(false));
         dispatch(setIsEdit(false));
+        //only editable fields are changed
         const editItem: EditItem = {
           id: currentId,
           name: editName,
@@ -168,7 +178,6 @@ const ModalWindow = () => {
           </a>
         </div>
       </div>
-
       <div
         ref={refModal}
         className={`modal__window__backdrop ${

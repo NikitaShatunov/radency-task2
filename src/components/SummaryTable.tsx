@@ -9,14 +9,12 @@ const SummaryTable = () => {
   const [unarchiveSum, setUnArchiveSum] = React.useState<Map<string, number> | undefined>();
   const [allTasks, setAllTasks] = React.useState<string[] | undefined>();
   React.useEffect(() => {
+    //get numbers of each field
     const { unarchive, archive, sumOfAll } = calcSummaryTable(items);
     setArchiveSum(archive);
     setUnArchiveSum(unarchive);
     setAllTasks(sumOfAll)
   }, [items]);
-  React.useEffect(() => {
-    
-  }, [allTasks])
   return (
     <>
       <ul className="taskContainerSecond">

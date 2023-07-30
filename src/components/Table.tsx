@@ -16,7 +16,7 @@ const headersFotTasksTable = [
   "Dates",
 ];
 const headersFotSumTable = ["Note category", "Active", "Archived"];
-
+//depending on the type we render different tables
 const Table = ({ type }: Type) => {
   const items = useAppSelector((state) => state.tasks.items);
   const [isArchived, setIsArchived] = React.useState(false);
