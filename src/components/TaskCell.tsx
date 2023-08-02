@@ -32,44 +32,44 @@ const TaskCell = ({ props, isArchived }: TasksCell) => {
   return (
     <>
       {props.archived === isArchived && (
-        <ul className="taskContainer">
-          <li className="task">
+        <ul className="grid grid-cols-6">
+          <li className="flex items-center pl-4 bg-[#adb6e6]/[0.2] mb-3 py-3">
             <img
-              className="taskImg"
+              className="w-10 mr-4"
               src={`/img/${categories[props.category]}`}
               alt={props.category}
             />
             {props.name}
           </li>
-          <li className="task">{props.created}</li>
-          <li className="task">{props.category}</li>
+          <li className="flex items-center bg-[#adb6e6]/[0.2] mb-3">{props.created}</li>
+          <li className="flex items-center bg-[#adb6e6]/[0.2] mb-3">{props.category}</li>
           <li
             id={String(props.id)}
-            className="task contentOfTask"
+            className="flex items-center bg-[#adb6e6]/[0.2] mb-3 cursor-zoom-in hover:font-semibold"
             onClick={() => onClickEdit()}
           >
             {props.content.length > 30
               ? props.content.slice(0, 30) + "..."
               : props.content}
           </li>
-          <li className="task dateTask">{props.date}</li>
-          <li className="sidebar">
+          <li className="flex items-center justify-center bg-[#adb6e6]/[0.2] mb-3">{props.date}</li>
+          <li className="flex justify-center bg-[#adb6e6]/[0.2] mb-3">
             <img
               onClick={() => dispatch(setArchive(props.id))}
-              className="sidebar__buttons"
+              className="w-6 mr-4 cursor-pointer"
               src="/img/archive.svg"
               id={String(props.id)}
               alt="archive"
             />
             <img
-              className="sidebar__buttons editZoom"
+              className="w-6 editZoom mr-4 cursor-pointer"
               src="/img/pencil.svg"
               id={String(props.id)}
               onClick={() => onClickEdit()}
               alt="pencil"
             />
             <img
-              className="sidebar__buttons"
+              className="w-6 cursor-pointer"
               src="./img/trash.svg"
               id={String(props.id)}
               onClick={() => onClickDeleteTask()}

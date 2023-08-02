@@ -109,20 +109,21 @@ const ModalWindow = () => {
   return (
     <div>
       <div
-        id="modal_1"
-        className={`modal__window ${
-          isModalShown || isEditShown ? "show" : "hidden"
+        className={`fixed top-1/3 h-64 rounded-xl left-1/3 z-50 visible bg-white w-2/6 drop-shadow-lg ${
+          isModalShown || isEditShown ? "visible" : "invisible"
         }`}
       >
-        <div className="modal__window__container">
-          <h3 className="modal__window__container__header">
+        <div className="flex p-4 mt-6">
+         <div className="w-1/2">
+         <h3 className="font-bold">
             {isModalShown ? "Add task:" : editItem?.category}
           </h3>
-          <div className="modal__window__container__left">
+          <div className="mt-4 ">
             {isModalShown && <label htmlFor="category">Choose category:</label>}
-            <br />
+      
             {isModalShown && (
               <select
+              className="border mt-2"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 name="category"
@@ -134,17 +135,14 @@ const ModalWindow = () => {
                 <option value="Idea">Idea</option>
               </select>
             )}
-
-            <br />
-            <label
-              className="modal__window__container__labelOfTask"
+            <div className="mt-4"><label
               htmlFor="nameOfTask"
             >
               Name:
-            </label>
+            </label></div>
 
-            <br />
             <input
+            className="mt-2 border pl-2"
               value={isModalShown ? name : editName}
               onChange={(e) => onChangeName(e.target.value)}
               name="nameOfTask"
@@ -154,16 +152,16 @@ const ModalWindow = () => {
             {isEditShown && (
               <div style={{ marginTop: "14px" }}>{editItem?.created}</div>
             )}
-            <br />
-            <br />
-            <span className={`warning ${isWarning ? "show" : "hidden"}`}>
+            <div className={`text-red-600 ${isWarning ? "show" : "invisible"}`}>
               Fill in all fields
-            </span>
+            </div>
           </div>
-          <div className="modal__window__container__right">
+         </div>
+          <div className="ml-7">
             <label htmlFor="contentFirst">Content:</label>
             <br />
             <textarea
+            className="border h-32 p-2 w-11/12"
               value={isModalShown ? content : editContent}
               onChange={(e) => onChangeContent(e.target.value)}
               name="contentFirst"
@@ -173,15 +171,15 @@ const ModalWindow = () => {
             ></textarea>
           </div>
 
-          <a href="#" onClick={() => onClickSave()} className="modal__close">
+          <a href="#" onClick={() => onClickSave()} className="fixed bottom-3 right-1/2 p-1 bg-slate-300 ml-4 rounded-lg font-medium hover:bg-slate-400">
             Save
           </a>
         </div>
       </div>
       <div
         ref={refModal}
-        className={`modal__window__backdrop ${
-          isModalShown || isEditShown ? "show" : "hidden"
+        className={`fixed top-0 left-0 w-screen h-screen bg-black/25 ${
+          isModalShown || isEditShown ? "show" : "invisible"
         }`}
         id="modal-backdrop"
       ></div>

@@ -30,9 +30,13 @@ const Table = ({ type }: Type) => {
     <>
       <div>
         <div>
-          <div className="listWrapper">
+          <div className="mx-4">
             <div
-              className={`list__header ${type === "tasks" ? "tasks" : "sum"}`}
+              className={`items-center grid text-center mb-3 mt-3 bg-neutral-300 rounded-lg h-10 lg:font-bold text-white text-lg ${
+                type === "tasks"
+                  ? "grid grid-cols-6"
+                  : "grid grid-cols-3 gap-x-4 pt-1"
+              }`}
             >
               {type === "tasks"
                 ? headersFotTasksTable.map((label, id) => (
@@ -41,19 +45,19 @@ const Table = ({ type }: Type) => {
                 : headersFotSumTable.map((label, id) => (
                     <div key={id}>{label}</div>
                   ))}
-              <div className="sidebar__buttons__container">
+              <div className="flex justify-center align-middle">
                 {type === "tasks" && (
                   <>
                     <span
                       onClick={() => setIsArchived(!isArchived)}
-                      className="sidebar__buttons__archive"
+                      className="hover:text-gray-400 cursor-pointer"
                     >
                       {isArchived ? "Archived" : "Active"}
                     </span>
                     <img
                       onClick={() => onClickClearTasks()}
                       data-title="Delete all"
-                      className="sidebar__buttons__delete"
+                      className="ml-3 cursor-pointer"
                       src="/img/trash.svg"
                       alt="trash"
                     />
@@ -61,15 +65,22 @@ const Table = ({ type }: Type) => {
                 )}
               </div>
             </div>
-            <div className="list__items">
-              <div className="list__items__main">
-              {type === 'tasks' ? <>  {items.map((obj, id) => (
-                  <div key={id}>
-                    <TaskCell isArchived={isArchived} props={obj} />
-                  </div>
-                ))}</> : <>
-                <SummaryTable />
-                </>}
+            <div>
+              <div>
+                {type === "tasks" ? (
+                  <>
+                    {" "}
+                    {items.map((obj, id) => (
+                      <div key={id}>
+                        <TaskCell isArchived={isArchived} props={obj} />
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <SummaryTable />
+                  </>
+                )}
               </div>
             </div>
           </div>
