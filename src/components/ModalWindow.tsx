@@ -4,6 +4,7 @@ import { Item, addTask, editTask } from "../redux/slices/tasksSlice";
 import { formatDate } from "../utils/formatDate";
 import { dateValidator } from "../utils/dateValidator";
 import { setIsEdit, setModalState } from "../redux/slices/modalSlice";
+import Button from "./Button";
 
 interface EditItem {
   id: number;
@@ -171,9 +172,9 @@ const ModalWindow = () => {
             ></textarea>
           </div>
 
-          <a href="#" onClick={() => onClickSave()} className="fixed bottom-3 right-1/2 p-1 bg-slate-300 ml-4 rounded-lg font-medium hover:bg-slate-400">
-            Save
-          </a>
+          <div className="fixed bottom-3 right-1/2 ">
+            <Button name="Save" onClick={() => onClickSave()} />
+          </div>
         </div>
       </div>
       <div
