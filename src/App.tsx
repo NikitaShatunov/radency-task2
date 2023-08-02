@@ -13,7 +13,7 @@ function App() {
     <div className="select-none">
       <ModalWindow />
       <Table type="tasks" />
-     <Button name="Create note" onClick={() => handleClick()}/>
+     <Button label="Create note" size="small" primary={true} onClick={() => handleClick()}/>
       <Table type="sum" />
     </div>
   );

@@ -173,7 +173,7 @@ const ModalWindow = () => {
           </div>
 
           <div className="fixed bottom-3 right-1/2 ">
-            <Button name="Save" onClick={() => onClickSave()} />
+            <Button label="Save" size="small" onClick={() => onClickSave()} />
           </div>
         </div>
       </div>

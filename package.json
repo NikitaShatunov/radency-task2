@@ -24,7 +24,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-storybook": "storybook build",
+    "sb": "concurrently \"npm run watch:tailwind\" \"npm run watch:storybook\"",
+    "watch:tailwind": "tailwindcss -i ./src/styles/index.css -o ./src/styles/tailwind.css --watch",
+    "watch:storybook": "storybook dev -p 6006"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +49,20 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.3"
+    "@storybook/addon-essentials": "^7.2.0",
+    "@storybook/addon-interactions": "^7.2.0",
+    "@storybook/addon-links": "^7.2.0",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.2.0",
+    "@storybook/preset-create-react-app": "^7.2.0",
+    "@storybook/react": "^7.2.0",
+    "@storybook/react-webpack5": "^7.2.0",
+    "@storybook/testing-library": "^0.2.0",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "concurrently": "^8.2.0",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.2.0",
+    "tailwindcss": "^3.3.3",
+    "webpack": "^5.88.2"
   }
 }
