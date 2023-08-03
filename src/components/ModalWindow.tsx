@@ -110,7 +110,7 @@ const ModalWindow = () => {
   return (
     <div>
       <div
-        className={`fixed top-1/3 h-64 rounded-xl left-1/3 z-50 visible bg-white w-2/6 drop-shadow-lg ${
+        className={`fixed top-1/3 h-72 rounded-xl left-1/3 z-50 visible bg-white w-2/6 drop-shadow-lg ${
           isModalShown || isEditShown ? "visible" : "invisible"
         }`}
       >

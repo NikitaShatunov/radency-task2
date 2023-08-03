@@ -1,24 +1,25 @@
 import { useAppDispatch } from "../redux/redux";
 import { setCurrentEdit, setIsEdit } from "../redux/slices/modalSlice";
 import { Item, deleteTask, setArchive } from "../redux/slices/tasksSlice";
+import Cell from "./Cell";
 
 interface TasksCell {
   props: Item;
   isArchived: Boolean;
   backgroundColor?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
 }
 interface Categories {
   [key: string]: string;
 }
 export const categories: Categories = {
-  'Shop': "task.svg",
-  'Random Thought': "thought.svg",
-  'Gym': "gym.svg",
-  'Idea': "idea.svg",
+  Shop: "task.svg",
+  "Random Thought": "thought.svg",
+  Gym: "gym.svg",
+  Idea: "idea.svg",
 };
 
-const TaskCell = ({ props, isArchived, backgroundColor, size = "medium" }: TasksCell) => {
+const TaskCell = ({ props, isArchived }: TasksCell) => {
   const dispatch = useAppDispatch();
 
   const onClickDeleteTask = () => {
@@ -29,38 +30,31 @@ const TaskCell = ({ props, isArchived, backgroundColor, size = "medium" }: Tasks
     dispatch(setCurrentEdit(props.id));
   };
 
-  const sizes = {
-    "small" : "py-2",
-    "medium" : "py-3",
-    "large" : "py-4"
-  }
-
   return (
     <>
       {props.archived === isArchived && (
         <ul className="grid grid-cols-6">
-          <li className={`flex items-center pl-4 bg-[#adb6e6]/[0.2] mb-3 ${sizes[size]}`} style={{ backgroundColor }}>
+          <Cell>
+            {" "}
             <img
               className="w-10 mr-4"
               src={`/img/${categories[props.category]}`}
               alt={props.category}
             />
-            {props.name}
-          </li>
-          <li className="flex items-center bg-[#adb6e6]/[0.2] mb-3" style={{ backgroundColor }}>{props.created}</li>
-          <li className="flex items-center bg-[#adb6e6]/[0.2] mb-3" style={{ backgroundColor }}>{props.category}</li>
-          <li
-            id={String(props.id)}
-            className="flex items-center bg-[#adb6e6]/[0.2] mb-3 cursor-zoom-in hover:font-semibold"
-            style={{ backgroundColor }}
+            {props.category}
+          </Cell>
+          <Cell>{props.created}</Cell>
+          <Cell>{props.category}</Cell>
+          <Cell
+            styles={"cursor-zoom-in hover:text-sky-400"}
             onClick={() => onClickEdit()}
           >
             {props.content.length > 30
               ? props.content.slice(0, 30) + "..."
               : props.content}
-          </li>
-          <li className="flex items-center justify-center bg-[#adb6e6]/[0.2] mb-3" style={{ backgroundColor }}>{props.date}</li>
-          <li className="flex justify-center bg-[#adb6e6]/[0.2] mb-3" style={{ backgroundColor }}>
+          </Cell>
+          <Cell styles={"justify-center"}>{props.date}</Cell>
+          <Cell styles={"justify-center"}>
             <img
               onClick={() => dispatch(setArchive(props.id))}
               className="w-6 mr-4 cursor-pointer"
@@ -82,7 +76,7 @@ const TaskCell = ({ props, isArchived, backgroundColor, size = "medium" }: Tasks
               onClick={() => onClickDeleteTask()}
               alt="trash"
             />
-          </li>
+          </Cell>
         </ul>
       )}
     </>
