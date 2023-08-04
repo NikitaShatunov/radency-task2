@@ -19,6 +19,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Example: Story = {
   args: {
-    children: 'June 5, 2022'
+    children: 'June 5, 2022',
+    styles: "font-bold"
   },
 };
